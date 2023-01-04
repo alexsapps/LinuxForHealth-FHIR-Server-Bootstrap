@@ -1,0 +1,6 @@
+# FHIR server ZIP installation
+fhir-server-5.1.0
+
+# Synthea
+synthea/bin/
+synthea/output/

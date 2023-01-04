@@ -1,0 +1,39 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        // Local server on Windows does not work; filed issue https://github.com/LinuxForHealth/FHIR/issues/4149 -
+        // Use Docker tasks instead.
+        {
+            "label": "FHIR Server: Windows: Start local server (does not work)",
+            "type": "shell",
+            "command": "liberty-runtime\\wlp\\bin\\server.bat start"
+        },
+        {
+            "label": "FHIR Server: Windows: Stop local server",
+            "type": "shell",
+            "command": "liberty-runtime\\wlp\\bin\\server.bat stop"
+        },
+        {
+            "label": "FHIR Server: Docker: Create server, if not exists (Derby config)",
+            "type": "shell",
+            "command": "docker container create --name ProofOfConceptLfhFhirServerConfiguredForDerby -p 9443:9443 --network fhir-server-network --add-host host.docker.internal:host-gateway -e BOOTSTRAP_DB=true ghcr.io/linuxforhealth/fhir-server",
+        },
+        {
+            "label": "FHIR Server: Docker: Start server and attach (Derby config)",
+            "type": "shell",
+            "command": "docker container start -i --attach ProofOfConceptLfhFhirServerConfiguredForDerby",
+        },
+        {
+            "label": "FHIR Server: Docker: Stop server (Derby config)",
+            "type": "shell",
+            "command": "docker container stop ProofOfConceptLfhFhirServerConfiguredForDerby",
+        },
+        {
+            "label": "FHIR Server: Docker: SSH (Derby config)",
+            "type": "shell",
+            "command": "docker container exec -it ProofOfConceptLfhFhirServerConfiguredForDerby /bin/sh",
+        },
+    ]
+}

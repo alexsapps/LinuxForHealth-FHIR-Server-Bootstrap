@@ -1,0 +1,8 @@
+exporter.csv.export = false
+exporter.ccda.export = false
+exporter.fhir.export = true
+exporter.fhir.bulk_data = true
+exporter.fhir_stu3.export = false
+exporter.fhir_dstu2.export = false
+exporter.hospital.fhir.export = false
+exporter.practitioner.fhir.export = false
