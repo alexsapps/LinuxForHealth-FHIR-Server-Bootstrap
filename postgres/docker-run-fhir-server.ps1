@@ -1,4 +1,6 @@
 # Runs the FHIR server configured to connect to Postgres DB
+#
+# Prerequisite: Image built with `postgres/docker-build-fhir-server.ps1`
 
 docker container run `
     <# remove container after exiting (a best practice. data is not lost as it's stored in the Volume.) #> `
@@ -13,7 +15,7 @@ docker container run `
     --network fhir-server-network `
     <# allow connections from container to host/laptop #> `
     --add-host host.docker.internal:host-gateway `
-    <# specify the LinuxForHealth container image #> `
+    <# specify the image name defiend in the build script #> `
     proof-of-concept-lfh-fhir-server-configured-for-postgres `
     <# forward any arguments of this PowerShell script into the container process #> `
     $args

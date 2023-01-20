@@ -1,6 +1,8 @@
 # Runs a Postgres server.
-
+#
 # Data is preserved between runs in a Volume. To reset the database, delete the volume.
+#
+# Prerequisite: container Network created with `fhir-server/docker-network-create.ps1`.
 
 # Create a container volume (if one does not already exist) to store database files outside the container.
 docker volume create lfh-fhir-server-postgres-db-volume

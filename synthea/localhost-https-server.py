@@ -17,4 +17,5 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         certfile = '.\\certs\\localhost.crt',
         server_side=True
         )
+    print('Serving Synthea output at https://localhost:' + str(PORT))
     httpd.serve_forever()

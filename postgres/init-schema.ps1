@@ -2,15 +2,15 @@
 
 # Prerequisites:
 #  - FHIR server is NOT running
-#  - Postgres server is running
+#  - Postgres server is running (`docker-run-postgres.ps1`)
 
 # CD to git repo root
 Set-Location "$(git rev-parse --show-toplevel)" -ErrorAction Stop
 
-.\postgres\docker-build-fhir-server-with-postgres.ps1
+.\postgres\docker-build-fhir-server.ps1
 if (-Not $?) { Exit }
 
-.\postgres\docker-run-fhir-server-with-postgres.ps1 java -jar `
+.\postgres\docker-run-fhir-server.ps1 java -jar `
    /opt/fhir-server/tools/fhir-persistence-schema-5.1.1-cli.jar `
    --db-type postgresql `
    --prop-file postgres-fhir-db.properties `
@@ -19,7 +19,7 @@ if (-Not $?) { Exit }
 if (-not $?) { Exit 1 }
 
 # Note: Use `--grant-to` to allow a non-admin user to access the schema
-.\postgres\docker-run-fhir-server-with-postgres.ps1 java -jar `
+.\postgres\docker-run-fhir-server.ps1 java -jar `
    /opt/fhir-server/tools/fhir-persistence-schema-5.1.1-cli.jar `
   --db-type postgresql `
   --prop-file postgres-fhir-db.properties `
