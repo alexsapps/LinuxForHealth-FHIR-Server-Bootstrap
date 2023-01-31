@@ -1,0 +1,1 @@
+docker container create --name ProofOfConceptLfhFhirServerConfiguredForDerby -p 9443:9443 --network fhir-server-network --add-host host.docker.internal:host-gateway -e BOOTSTRAP_DB=true proof-of-concept-lfh-fhir-server

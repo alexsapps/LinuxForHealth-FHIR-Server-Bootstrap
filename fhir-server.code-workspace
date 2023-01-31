@@ -5,9 +5,6 @@
 		}
 	],
 	"settings": {
-		"task.problemMatchers.neverPrompt": {
-			"shell": true
-		},
 		"cSpell.words": [
 			"FHIR",
 			"Synthea"

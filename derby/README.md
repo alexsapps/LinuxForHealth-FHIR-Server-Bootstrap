@@ -7,12 +7,26 @@ Builds on fhir-server/ directory to run with Derby as the FHIR database.
 Prerequisite: One time only, run the powershell script `/fhir-server/docker-network-create.ps1`. At least once, and
 each time after making any relevant configuration changes, run `/fhir-server/docker-build.ps1`.
 
-This VS Code workspace defines tasks for downloading and running LinuxForHealth FHIR Server with Derby. To view and run
-the tasks, type ctrl+P to open the command pallet, and then type `task FHIR Server:`; alternatively click `Terminal` ->
-`Run Task...`. To view the commands, open [tasks.json](.vscode/tasks.json).
+There are two ways to run, the simple way or the persistent way.
 
-The tasks assume you intend to reuse the same container, rather than re-create the container each time and using a
-volume for persistence of data. (I have not yet tried to persist Derby's data in a Docker volume.)
+### The easy way
 
-If you don't mind the database being wiped out when the container stops, you may use the script
-`derby/docker-run-fhir-server-with-derby.ps1`.
+The easy way is to run this script:
+
+`./docker-run-fhir-server-no-persistence.ps1`
+
+When the container is stopped, it will be removed; this avoids cluttering your list of stopped containers in Docker.
+All data will be lost and each time you start the server it will have to reinitialize the (temporary) database.
+
+### The persistent way
+
+The Derby database files and any configuration changes made by SSH-ing into the container are saved (persisted) across
+runs using this technique.
+
+```powershell
+docker-create-if-not-exists.ps1
+docker-start-fhir-server-and-attach.ps1
+```
+
+You can make configuration changes by running `docker-fhir-server-ssh.ps1` and using a text editor to edit configuration
+files, then restarting by hitting ctrl+c on the server and running the start-and-attach script again.

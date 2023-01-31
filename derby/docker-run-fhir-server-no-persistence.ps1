@@ -1,7 +1,7 @@
 # Starts a fresh instance of FHIR server with Derby.
 #
 # ALL FHIR DATA IS LOST after the container stops, as this script runs `docker container run --rm ...` with no Docker
-# volumes. To preserve Derby data, use `docker create`, `docker start` and `docker stop` commands in tasks.json.
+# volumes. To preserve Derby data, use `docker create`, `docker start` and `docker stop` commands.
 #
 # Prerequisite: Image built with `fhir-server/docker-build.ps1`
 
