@@ -9,10 +9,9 @@ External instructions: https://github.com/synthetichealth/synthea/wiki/Basic-Set
 
 Download and run as follows:
 
-```
-synthea/download-jar.ps1
-synthea/generate-resources.ps1
-```
+[`synthea/download-jar.ps1`](download-jar.ps1)
+
+[`synthea/generate-resources.ps1`](generate-resources.ps1)
 
 The the 2nd script will create NDJSON files in a subdirectory of this one called `output`.
 
