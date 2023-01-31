@@ -1,17 +1,21 @@
-# LinuxForHealth FHIR Server Proof of Concept
+# LinuxForHealth FHIR Server Starter Project
 
-Proof-of-concept project for [LinuxForHealth FHIR Server](https://github.com/LinuxForHealth/FHIR) (Don't miss their link to the [User's Guide](https://linuxforhealth.github.io/FHIR/guides/FHIRServerUsersGuide)).
+Project showing [LinuxForHealth FHIR Server](https://github.com/LinuxForHealth/FHIR) with a minimal working 
+configuration and how to get started importing synthetic data from Synthea and set up a Postgres database.
 
-## LinuxForHealth FHIR Server
+This project Docker and Powershell extensively.
 
-## Running on your developer machine
+Don't miss their link to the [User's Guide](https://linuxforhealth.github.io/FHIR/guides/FHIRServerUsersGuide)!
 
-This VS Code workspace defines tasks for downloading and running LinuxForHealth FHIR Server. To view and run the tasks, type ctrl+P to open the command pallet, and then type `task FHIR Server:`; alternatively click `Terminal` -> `Run Task...`. To view the commands, open [tasks.json](.vscode/tasks.json).
+## ...with Derby configuration
 
-## Generating test data
+See our [README for Derby](derby/README.md) for instructions on running the FHIR server with the default Derby database.
 
-See our [Synthea README](synthea/README.md) for instructions on generating test data.
+## ...with Postgres configuration
 
-## Importing test data
+See our [README for Postgres](postgres/README.md) for instructions on running the FHIR server with a Postgres database.
 
-See the [Bulk Data Guide](https://linuxforhealth.github.io/FHIR/guides/FHIRBulkOperations) for external instructions.
+## Generating and importing test data with Synthea
+
+See our [Synthea README](synthea/README.md) for instructions on generating test data and importing it to LinuxForHealth
+FHIR server.

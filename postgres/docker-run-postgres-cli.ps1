@@ -1,6 +1,9 @@
-# SSH into container from Postgres server image.
+# Run postgres CLI.
 #
-# This is useful, for example, to use the postgres CLI. (For this, be sure to initialize the database first.)
+# Prerequisite: Postgres is running via `docker-run-postgres.ps1`.
+#
+# Recommended to run after connecting:
+#   SET search_path TO fhirdata;
 
 docker container run --rm -it `
     <# Put on the same network as the container that is actually running the Postgres server #> `

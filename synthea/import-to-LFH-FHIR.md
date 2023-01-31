@@ -1,32 +1,9 @@
 
 # Import Synthea output to LinuxForHealth FHIR Server
 
-## 0. Prerequisites
+## 1. Create Synthea data
 
-* FHIR server container already running in Docker (see [../README.md](../README.md) for more info).
-* Synthea output directory contains generated `*.ndjson` files (see [README.md](README.md) for more info).
-
-## 1.5 Tell FHIR server to trust your CA
-
-Copy the CA cert into the container:
-
-```powershell
-docker cp <path>\CA.pem <your container name>:/opt/ol/wlp/usr/servers/defaultServer/docker-host-CA.pem
-```
-
-Then SSH into the container (consider using the SSH task defined in this project).
-
-Once logged into the container, verify that the `fhirServer/bulkdata/core/api/truststore` setting in `fhir-server-config.json` points to the trust store file in the following command, and then run that command to import the CA public key to this trust store:
-
-```bash
-keytool -import -alias DockerHostCA -file ./docker-host-CA.pem -storetype PKCS12 -keystore resources/security/fhirTrustStore.p12
-```
-
-When prompted for the password to this trust store, enter password `change-password`. When asked whether to trust the certificate, type `yes`.
-
-Now you should see `dockerhostca` alias when you view the keystore: `keytool -list -keystore resources/security/fhirTrustStore.p12`
-
-Restart the docker container to ensure the trust store is reloaded.
+If you haven't already, make sure the Synthea output directory contains generated `*.ndjson` files; see [README.md](README.md) for more info.
 
 ## 2. Start file server
 
@@ -36,22 +13,18 @@ Start the HTTPS Python file server:
 python .\\synthea\\localhost-https-server.py
 ```
 
-## 3. Configure HTTPS import option in LinuxForHealth
+## 3. Start the FHIR server
 
-In the LFH FHIR server, edit the file `config/default/fhir-server-config.json` (in `wlp/usr/servers/defaultServer/`) (in the case of docker, to access this file use `docker exec` or the SSH task defined in this project). In the file, add a storage provider configuration in the
-`storageProviders` JSON object:
+Make one of our FHIR server containers is already running in Docker; see [../README.md](../README.md) for more info.
 
-```json
-"storageProviders": {
-    "https": {
-        "type": "https",
-        "validBaseUrls": ["https://host.docker.internal:4443/"]
-    },
-    "default": {...}
-}
-```
+The scripts in this project launch a FHIR server that is preconfigured to trust our certificate authority (CA) with
+public key file in certs\CA.pem, and configured the import mechanism specifically to allow using our HTTPS server via
+`https://host.docker.internal:4443/` in the "storageProviders" section of our configuration in
+`fhir-server\fhir-server-config.json`.
 
 ## 4. Call the import endpoint
+
+See the [Bulk Data Guide](https://linuxforhealth.github.io/FHIR/guides/FHIRBulkOperations) for external instructions.
 
 Run this `CURL` command directly, or alternatively, use Postman's "Import" button and paste the CURL command into the "Raw text" tab.
 
