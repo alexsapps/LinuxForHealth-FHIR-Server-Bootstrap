@@ -10,23 +10,24 @@ If you haven't already, make sure the Synthea output directory contains generate
 Start the HTTPS Python file server:
 
 ```bash
-python .\\synthea\\localhost-https-server.py
+python .\synthea\localhost-https-server.py
 ```
 
 ## 3. Start the FHIR server
 
 Make one of our FHIR server containers is already running in Docker; see [../README.md](../README.md) for more info.
 
-The scripts in this project launch a FHIR server that is preconfigured to trust our certificate authority (CA) with
-public key file in certs\CA.pem, and configured the import mechanism specifically to allow using our HTTPS server via
-`https://host.docker.internal:4443/` in the "storageProviders" section of our configuration in
-`fhir-server\fhir-server-config.json`.
+Note: the scripts in this project launch a FHIR server that is pre-configured to trust our certificate authority (CA)
+(known by its public key file in certs\CA.pem), and configure the import mechanism specifically to allow using our
+HTTPS server (via its URI `https://host.docker.internal:4443/`) in the "storageProviders" section of our configuration
+in `fhir-server\fhir-server-config.json`.
 
 ## 4. Call the import endpoint
 
 See the [Bulk Data Guide](https://linuxforhealth.github.io/FHIR/guides/FHIRBulkOperations) for external instructions.
 
-Run this `CURL` command directly, or alternatively, use Postman's "Import" button and paste the CURL command into the "Raw text" tab.
+To kick off the import process, run this `CURL` command directly, or alternatively, use Postman's "Import" button and
+paste the CURL command into the "Raw text" tab.
 
 ```bash
 curl --location --request POST 'https://localhost:9443/fhir-server/api/v4/$import' \
